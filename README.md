@@ -1,5 +1,14 @@
 # kioskDB
-
+<br><br><br>
+# 키오스크 화면
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/698f154b-512e-4d3a-9885-026ff68e0c54)
+<br><br><br>
+# 관리자 로그인 화면
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/d11155f5-9b98-41d5-bd45-611edbf431ea)
+<br><br><br>
+# 통계 화면
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/586fa751-0b6c-4ffa-9bcb-548d1d00ce55)
+<br><br><br>
 # kiosk main
 
 ```java
@@ -190,3 +199,142 @@ public class SampleController {
     }
 }
 ```
+<br><br><br>
+# 관리자 로그인 코드
+```java
+package application;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+public class AdminloginController {
+
+	@FXML Button LoginButtion, ClearButton, CloseButton;
+	@FXML TextField IdTextField;
+	@FXML PasswordField PwPasswordField;
+	
+	
+	@FXML
+	private void LoginButtonAction(ActionEvent event) {
+		
+		if(IdTextField.getText().isEmpty() || PwPasswordField.getText().isEmpty()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("경고창");
+			alert.setContentText("아이디 비번 모두 입력");
+			alert.show();
+		} else {
+		DBconnect conn = new DBconnect();
+		Connection conn2 = conn.getconn();
+		
+		String sql = "select adminid, adminpw"
+				   + " from admin_accounts"
+				   + " where adminid = ? and adminpw = ?";
+		
+		
+		try {
+			PreparedStatement ps = conn2.prepareStatement(sql);
+			
+			ps.setString(1, IdTextField.getText());
+			ps.setString(2, PwPasswordField.getText());
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("알림");
+				alert.setContentText("로그인 성공");
+				alert.show();
+				Stage stage = new Stage();
+				
+				CloseButtonAction(event);
+				
+				try {
+					Parent root = FXMLLoader.load(getClass().getResource("Admindb.fxml"));
+					Scene scene = new Scene(root);
+					stage.setScene(scene);
+					stage.show();
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
+			} else {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("알림");
+				alert.setContentText("로그인 실패");
+				alert.show();
+			}
+			
+		} catch (SQLException e) {	
+			e.printStackTrace();
+		}
+	}
+}
+	
+	
+	@FXML
+	private void ClearButttonAction(ActionEvent event) {
+		IdTextField.setText("");
+		PwPasswordField.setText("");
+	}
+	
+	
+	@FXML
+	private void CloseButtonAction(ActionEvent event) {
+		Stage stage = new Stage();
+		stage = (Stage)CloseButton.getScene().getWindow();
+		stage.close();
+	}
+	
+	
+	
+}
+```
+<br><br><br>
+# DB연결 코드
+```java
+package application;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DBconnect {
+	
+	public Connection conn;
+	
+	public Connection getconn() {
+		
+		String driver = "oracle.jdbc.driver.OracleDriver";
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String id = "cafe3";
+		String password = "cafe3";
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, id, password);
+			System.out.println("디비 접속 성공-20230516");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("디비 접속 실패");
+		}
+		return conn;
+	}
+}
+```
+<br><br><br>
+# SQLDeveloper
