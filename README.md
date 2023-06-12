@@ -145,7 +145,6 @@ public class SampleController {
     	//else if(sum!=0) {
     	//디비 접속
     	//실제 주문 내역 디비에 저장하기
-    //}
     
     	if(sum!=0) {
     		DBconnect conn = new DBconnect();
