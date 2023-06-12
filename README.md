@@ -30,8 +30,8 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("성일CAFE - 5월");
-			primaryStage.show();
+			primaryStage.setTitle("성일CAFE - 5월");	// 키오스크 화면 타이틀 이름
+			primaryStage.show();	// 
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -60,19 +60,19 @@ public class SampleController {
     private int countm[] = new int[3];
     
     Kiosksum kiosksum = new Kiosksum();
-    
-    @FXML
-    public void M1pButtonAction(ActionEvent event) { // 키오스크 + 버튼을 누를 시 주문 갯수 증가
-    	countm[0]=countm[0]+1;
-    	menu_append();
-    }
 
 	private void menu_append() {		
 		ListTextArea.setText("");
 		for(int i=0; i<3;i++) {
 			ListTextArea.appendText(menu_name[i] + " : " + countm[i] + "잔"+"\n");
 		}	
-	}
+	}		// 메뉴 추가 버튼을 누를 시 아메리카노, 카푸치노, 카페라떼의 개수를 출력해줌
+	
+	@FXML
+    public void M1pButtonAction(ActionEvent event) { 	// 키오스크 + 버튼을 누를 시 주문 개수 1증가
+    	countm[0]=countm[0]+1;
+    	menu_append();
+    }
 
 	@FXML
 	public void M2pButtonAction(ActionEvent event) {
@@ -88,7 +88,7 @@ public class SampleController {
     
     
     @FXML
-    public void M1mButtonAction(ActionEvent event) {
+    public void M1mButtonAction(ActionEvent event) {	// -버튼을 누를 시 제품 개수 -1
     	if(countm[0]>0) countm[0]--;
     	menu_append();
     }
@@ -108,22 +108,19 @@ public class SampleController {
     
     @FXML
     public void CancleButtonAction(ActionEvent event) {
-    	sumLabel.setText("0");
-    	ListTextArea.setText("");
+    	sumLabel.setText("0");		// 총액 sumLabel text를 0으로 설정
+    	ListTextArea.setText("");	// 제품을 모두 초기화
     	for(int i=0;i<3; i++) {
     		countm[i]=0;
     	}	
-    	sum = 0;
+    	sum = 0;	// 합계 0으로 초기화
     }
 
 
     @FXML
     public void SumButtonAction(ActionEvent event) {
-    	//메소드로 먼저 작성해보기 ==> 기본으로 ==> for문으로
-    	//클래스로 별도 작성해보기	
     	sum = kiosksum.ksum(countm);
     	sumLabel.setText(sum + "");
-    	
     }
     
     
@@ -139,8 +136,7 @@ public class SampleController {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-    
-    }
+    }			// 관리자 로그인 버튼을 누를 시 adminlogin.fxml 에 만들어둔 화면을 띄우기
     
     
     @FXML
@@ -326,7 +322,7 @@ public class DBconnect {
 		
 		try {
 			Class.forName(driver);
-			conn = DriverManager.getConnection(url, id, password);
+			conn = DriverManager.getConnection(url, id, password);	// DB에 있는 id, password가 일치 할 시 DB 접속
 			System.out.println("디비 접속 성공-20230516");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -336,5 +332,3 @@ public class DBconnect {
 	}
 }
 ```
-<br><br><br>
-# SQLDeveloper
