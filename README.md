@@ -7,7 +7,7 @@
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/d11155f5-9b98-41d5-bd45-611edbf431ea)
 <br><br><br>
 # 통계 화면
-![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/586fa751-0b6c-4ffa-9bcb-548d1d00ce55)
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/ec2b8c22-d13a-45c3-a0ae-c4ae9d5847dd)
 <br><br><br>
 # kiosk main
 
