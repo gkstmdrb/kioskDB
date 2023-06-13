@@ -226,7 +226,7 @@ public class AdminloginController {
 	
 	@FXML
 	private void LoginButtonAction(ActionEvent event) {
-		
+		// IdTextField에 입력한 Text가 비어있거나 PwPasswordField에도 비어있다면 경고창 띄우기
 		if(IdTextField.getText().isEmpty() || PwPasswordField.getText().isEmpty()) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("경고창");
@@ -235,20 +235,21 @@ public class AdminloginController {
 		} else {
 		DBconnect conn = new DBconnect();
 		Connection conn2 = conn.getconn();
+		// DB연결 코드
 		
 		String sql = "select adminid, adminpw"
 				   + " from admin_accounts"
 				   + " where adminid = ? and adminpw = ?";
-		
+		// DB에 있는 admin_accounts 테이블에 adminid, adminpw가 입력한 값과 일치한다면 adminid, pw 조회
 		
 		try {
 			PreparedStatement ps = conn2.prepareStatement(sql);
 			
-			ps.setString(1, IdTextField.getText());
-			ps.setString(2, PwPasswordField.getText());
+			ps.setString(1, IdTextField.getText());		// 첫번째 ?값 가져오기
+			ps.setString(2, PwPasswordField.getText());	// 두번째 ?값 가져오기
 			
 			ResultSet rs = ps.executeQuery();
-			
+			// 쿼리 실행문
 			if(rs.next()) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("알림");
