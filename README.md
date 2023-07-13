@@ -31,7 +31,7 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("성일CAFE - 5월");	// 키오스크 화면 타이틀 이름
-			primaryStage.show();	// 
+			primaryStage.show();	// 실행시 화면을 띄우는 코드(이게 있어야 화면이 나옴)
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -107,7 +107,7 @@ public class SampleController {
     
     
     @FXML
-    public void CancleButtonAction(ActionEvent event) {
+    public void CancleButtonAction(ActionEvent event) { // 취소버튼을 누를 시
     	sumLabel.setText("0");		// 총액 sumLabel text를 0으로 설정
     	ListTextArea.setText("");	// 제품을 모두 초기화
     	for(int i=0;i<3; i++) {
@@ -140,47 +140,51 @@ public class SampleController {
     
     
     @FXML
-    public void OrderButtonAction(ActionEvent event) {
+    public void OrderButtonAction(ActionEvent event) { // 주문버튼을 누를 시
     	//if(sum==0) { 경고메시지 }
     	//else if(sum!=0) {
     	//디비 접속
     	//실제 주문 내역 디비에 저장하기
     
     	if(sum!=0) {
-    		DBconnect conn = new DBconnect();
+    		DBconnect conn = new DBconnect();	// DB연결하는 코드
     		Connection conn2 = conn.getconn();
     		
-    		String sql = "insert into orderlist_accounts"
-    				+ " (idx, order_time, menu1, count1, menu2, count2, menu3, count3, sum)"
+    		String sql = "insert into orderlist_accounts" // 'orderlist_accounts' 테이블에 데이터를 삽입하는 INSERT문
+    				+ " (idx, order_time, menu1, count1, menu2, count2, menu3, count3, sum)" 
     				+ " values (orderlist_idx_pk.nextval, current_timestamp, '아메리카노', ?, '카푸치노', ?, '카페라떼', ?, ?)";
-    		
+    				// 삽입할 열은 idx, order_time, menu1, count1, menu2, count2, menu3, count3, sum
+				// 값으로는 orderlist_idx_pk.nextval, current_timestamp, '아메리카노', ?, '카푸치노', ?, '카페라떼', ?, ?을 사용한다.
+				// orderlist_idx_pk.nextval은 시퀀스 객체인 orderlist_idx_pk에서 다음 값을 가져오는 것을 나타낸다.
+				// current_timestamp는 주문버튼을 눌렀을때 그 시간을 나타낸다.
+				// ?에는 사용자가 메뉴를 주문한 주문 갯수가 들어간다.
     		try {
-				PreparedStatement ps = conn2.prepareStatement(sql);
-				ps.setInt(1, countm[0]);
+				PreparedStatement ps = conn2.prepareStatement(sql); // ?에 사용자가 입력한 값을 넣는 코드
+				ps.setInt(1, countm[0]); // 첫번째(두, 세, 네번째도) ?에 countm[0](1, 2, sum)에 있는 값을 넣는다.
 				ps.setInt(2, countm[1]);
 				ps.setInt(3, countm[2]);
 				ps.setInt(4, sum);
 				
-				ResultSet rs = ps.executeQuery();
+				ResultSet rs = ps.executeQuery(); // sql 쿼리 실행
 				
 				if(rs.next()) {
 				
-				sumLabel.setText("0");
-		    	ListTextArea.setText("");
-		    	for(int i=0;i<3; i++) {
-		    		countm[i]=0;
-		    }	
-				sum = 0;
+					sumLabel.setText("0");
+		    			ListTextArea.setText("");
+		    			for(int i=0;i<3; i++) {
+		    				countm[i]=0;
+					}	
+					sum = 0;
 				
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setHeaderText("배달의 민족");
-	    		alert.setContentText("배달의 민족 주문");
-	    		alert.show();
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setHeaderText("배달의 민족");
+	    				alert.setContentText("배달의 민족 주문");
+	    				alert.show();
 				} else {
 					Alert alert = new Alert(AlertType.WARNING);
 					alert.setHeaderText("배달의 민족");
-		    		alert.setContentText("오류");
-		    		alert.show();
+		    			alert.setContentText("오류");
+		    			alert.show();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -311,13 +315,13 @@ import java.sql.SQLException;
 
 public class DBconnect {
 	
-	public Connection conn;
+	public Connection conn; // conn이라는 DB와 연결해주는 코드
 	
 	public Connection getconn() {
 		
-		String driver = "oracle.jdbc.driver.OracleDriver";
+		String driver = "oracle.jdbc.driver.OracleDriver"; // DB연결 경로(외워야함)
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
-		String id = "cafe3";
+		String id = "cafe3"; // DB생성 했을때 내가 지정한 id, pw
 		String password = "cafe3";
 		
 		try {
