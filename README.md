@@ -12,15 +12,12 @@
 # kiosk main
 
 ```java
-
 package application;
-	
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
-
 
 public class Main extends Application {
 	@Override
@@ -47,7 +44,6 @@ public class Main extends Application {
 # controller code
 ``` java
 public class SampleController {
-
     @FXML private Button CalButton, CancleButton;
     @FXML private Button M1pButton, M2pButton, M3pButton;
     @FXML private Button M1mButton, M2mButton, M3mButton;
@@ -67,45 +63,36 @@ public class SampleController {
 			ListTextArea.appendText(menu_name[i] + " : " + countm[i] + "잔"+"\n");
 		}	
 	}		// 메뉴 추가 버튼을 누를 시 아메리카노, 카푸치노, 카페라떼의 개수를 출력해줌
-	
 	@FXML
     public void M1pButtonAction(ActionEvent event) { 	// 키오스크 + 버튼을 누를 시 주문 개수 1증가
     	countm[0]=countm[0]+1;
     	menu_append();
     }
-
 	@FXML
 	public void M2pButtonAction(ActionEvent event) {
     	countm[1]++;    	
     	menu_append();
     }
-    
     @FXML
     public void M3pButtonAction(ActionEvent event) {
     	countm[2]++;    	
     	menu_append();
     }
-    
-    
     @FXML
     public void M1mButtonAction(ActionEvent event) {	// -버튼을 누를 시 제품 개수 -1
     	if(countm[0]>0) countm[0]--;
     	menu_append();
     }
-
     @FXML
     public void M2mButtonAction(ActionEvent event) {
     	if(countm[1]>0) countm[1]--;
     	menu_append();
     }
-    
     @FXML
     public  void M3mButtonAction(ActionEvent event) {
     	if(countm[2]>0) countm[2]--;
     	menu_append();
-    }
-    
-    
+    }    
     @FXML
     public void CancleButtonAction(ActionEvent event) { // 취소버튼을 누를 시
     	sumLabel.setText("0");		// 총액 sumLabel text를 0으로 설정
@@ -115,15 +102,11 @@ public class SampleController {
     	}	
     	sum = 0;	// 합계 0으로 초기화
     }
-
-
     @FXML
-    public void SumButtonAction(ActionEvent event) {
-    	sum = kiosksum.ksum(countm);
+    public void SumButtonAction(ActionEvent event) { // 합계 버튼을 누를 시
+    	sum = kiosksum.ksum(countm);	// kiosksum 클래스에서 주문한 금액을 계산함
     	sumLabel.setText(sum + "");
     }
-    
-    
     @FXML
     public void AdminButtonAction(ActionEvent event) {
     	try {
@@ -137,8 +120,6 @@ public class SampleController {
 			e.printStackTrace();
 		}
     }			// 관리자 로그인 버튼을 누를 시 adminlogin.fxml 에 만들어둔 화면을 띄우기
-    
-    
     @FXML
     public void OrderButtonAction(ActionEvent event) { // 주문버튼을 누를 시
     	//if(sum==0) { 경고메시지 }
@@ -164,11 +145,9 @@ public class SampleController {
 				ps.setInt(2, countm[1]);
 				ps.setInt(3, countm[2]);
 				ps.setInt(4, sum);
-				
 				ResultSet rs = ps.executeQuery(); // sql 쿼리 실행
 				
 				if(rs.next()) {
-				
 					sumLabel.setText("0");
 		    			ListTextArea.setText("");
 		    			for(int i=0;i<3; i++) {
@@ -176,10 +155,10 @@ public class SampleController {
 					}	
 					sum = 0;
 				
-					Alert alert = new Alert(AlertType.INFORMATION);
+					Alert alert = new Alert(AlertType.INFORMATION); // 정보창 띄우기
 					alert.setHeaderText("배달의 민족");
 	    				alert.setContentText("배달의 민족 주문");
-	    				alert.show();
+	    				alert.show(); // stage를 보여주는 코드와 같은 역할
 				} else {
 					Alert alert = new Alert(AlertType.WARNING);
 					alert.setHeaderText("배달의 민족");
@@ -189,7 +168,6 @@ public class SampleController {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-    		
     	} else {
     		Alert alert = new Alert(AlertType.WARNING);
     		alert.setContentText("메뉴를 선택하고 계산하기를 누르십시오");
@@ -202,13 +180,11 @@ public class SampleController {
 # 관리자 로그인 코드
 ```java
 package application;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -222,12 +198,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class AdminloginController {
-
 	@FXML Button LoginButtion, ClearButton, CloseButton;
 	@FXML TextField IdTextField;
 	@FXML PasswordField PwPasswordField;
-	
-	
 	@FXML
 	private void LoginButtonAction(ActionEvent event) {
 		// IdTextField에 입력한 Text가 비어있거나 PwPasswordField에도 비어있다면 경고창 띄우기
@@ -237,9 +210,8 @@ public class AdminloginController {
 			alert.setContentText("아이디 비번 모두 입력");
 			alert.show();
 		} else {
-		DBconnect conn = new DBconnect();
+		DBconnect conn = new DBconnect(); // DB연결 코드
 		Connection conn2 = conn.getconn();
-		// DB연결 코드
 		
 		String sql = "select adminid, adminpw"
 				   + " from admin_accounts"
@@ -252,8 +224,7 @@ public class AdminloginController {
 			ps.setString(1, IdTextField.getText());		// 첫번째 ?값 가져오기
 			ps.setString(2, PwPasswordField.getText());	// 두번째 ?값 가져오기
 			
-			ResultSet rs = ps.executeQuery();
-			// 쿼리 실행문
+			ResultSet rs = ps.executeQuery(); // 쿼리 실행문
 			if(rs.next()) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("알림");
@@ -278,47 +249,37 @@ public class AdminloginController {
 				alert.setContentText("로그인 실패");
 				alert.show();
 			}
-			
 		} catch (SQLException e) {	
 			e.printStackTrace();
 		}
 	}
 }
 	
-	
 	@FXML
 	private void ClearButttonAction(ActionEvent event) {
 		IdTextField.setText("");
 		PwPasswordField.setText("");
 	}
-	
-	
 	@FXML
 	private void CloseButtonAction(ActionEvent event) {
 		Stage stage = new Stage();
 		stage = (Stage)CloseButton.getScene().getWindow();
 		stage.close();
 	}
-	
-	
-	
 }
 ```
 <br><br><br>
 # DB연결 코드
 ```java
 package application;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
 public class DBconnect {
 	
 	public Connection conn; // conn이라는 DB와 연결해주는 코드
-	
 	public Connection getconn() {
-		
+
 		String driver = "oracle.jdbc.driver.OracleDriver"; // DB연결 경로(외워야함)
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String id = "cafe3"; // DB생성 했을때 내가 지정한 id, pw
@@ -333,6 +294,23 @@ public class DBconnect {
 			System.out.println("디비 접속 실패");
 		}
 		return conn;
+	}
+}
+```
+<br><br><br>
+
+# kiosksum 클래스
+``` java
+package application;
+public class Kiosksum {
+	public int ksum(int[] countm) {
+		int sum2=0;
+		int price[] = {1000,2000,3000};
+			
+		for(int i=0 ; i<3 ; i++) {
+			sum2 = sum2 + countm[i] * price[i];
+		}
+		return sum2;
 	}
 }
 ```
