@@ -45,17 +45,25 @@ DB에 연결하여 select문을 통해 admin_accounts 테이블에 있는 정보
 주문번호, 주문시간, 주문개수, 합계를 주문번호 순으로 정렬하여 <br>
 orderlistTableView인 <br>
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/b3201ba1-172a-4626-87f3-d26cdbde1084) <br>
-화면에는 주문번호, 일시, 아메리카노, 카푸치노, 카페라떼의 개수, 합계가 나오고 <br><br>
+화면에는 주문번호, 일시, 아메리카노, 카푸치노, 카페라떼의 주문 개수, 합계가 나오고 <br><br>
 
 resultTextArea인 <br>
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/20007359-2e35-4da8-8839-70e6e10341b5) <br>
-화면에는 아메리카노, 카푸치노, 카페라떼의 개수와, 금액의 총합이 나온다. <br><br>
+화면에는 아메리카노, 카푸치노, 카페라떼의 주문 개수와, 금액의 총합이 나온다. <br><br>
 
+## 판매수량 그래프
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/9f003c16-b7b5-4aa8-8d34-9bd7af7b59b7) <br>
-![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/ae36a673-f1e1-4409-94ba-a6965fd3afc4) <br>
-![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/3d5293b7-8309-48f2-9c8a-2be883ec25f3)
+판매수량 그래프 버튼을 누르면 세 품목의 주문 개수의 비율을 나타낸 원형그래프가 나온다.<br><br>
 
-<br><br><br>
+## 날짜별 조회
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/ae36a673-f1e1-4409-94ba-a6965fd3afc4) <br>
+조회 날짜 입력칸에 날짜를 입력 후 날짜별 조회 버튼을 누르면 당일에 주문한 품목의 정보가 나온다. <br><br>
+
+## 기간별 조회
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/3d5293b7-8309-48f2-9c8a-2be883ec25f3) <br>
+시작 날짜, 종료 날짜 칸에 날짜를 입력하여 범위를 설정 후 기간별 조회 버튼을 누르면 그 범위에 해당하는 날짜의 주문 정보가 나온다. <br><br><br>
+
+
 # kiosk main
 
 ```java
