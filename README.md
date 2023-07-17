@@ -512,7 +512,7 @@ public class AdmindbController implements Initializable{
 ```
 <br><br><br>
 
-# package application;
+# Orderlist.java
 ``` java
 public class Orderlist {
 	// 실제 테이블 뷰에 들어가는 각 컬럼들을 나타낼 수 있는 자료구조를 만들어야 함
