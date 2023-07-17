@@ -22,14 +22,35 @@ DB에 내가 주문한 정보가 저장된다. <br><br>
 <br><br><br>
 # 관리자 로그인 화면
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/d11155f5-9b98-41d5-bd45-611edbf431ea) <br>
-![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/438e598b-d018-44b9-86ff-5051edbcab33) <br>
+## 로그인 화면 관련 코드
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/0458a498-35e4-4c70-a285-88375520e9ef) <br>
+입력하는 IdTextField와 PwPasswordField가 하나라도 비어있다면, <br>
+경고창이 나오고 다시 입력해야한다. <br>
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/73368a3d-345e-476b-b398-6ec7d3836ef9) <br><br>
+
+## 비어있지 않다면
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/438e598b-d018-44b9-86ff-5051edbcab33) <br><br>
+DB에 연결하여 select문을 통해 admin_accounts 테이블에 있는 정보와 비교하여 <br>
+일치하다면 로그인 성공 안내창이 나오고 다르다면 로그인 실패 안내창이 나온다. <br><br>
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/299aaa0c-4e7b-4ca1-8300-06f329d92d01) <br>
-![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/73368a3d-345e-476b-b398-6ec7d3836ef9) <br>
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/0493f829-55ae-4929-9b6f-2bca9b80d4ae)
 
 <br><br><br>
 # 통계 화면
+## 전체조회 후 판매수량 그래프
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/ec2b8c22-d13a-45c3-a0ae-c4ae9d5847dd) <br>
+## 전체조회 버튼 코드
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/1e81bb51-0739-40f1-a94c-45d75203ed75) <br>
+전체조회 버튼을 누르면 DB접속 후 select문으로 orderlist_accounts 테이블에 있는 <br>
+주문번호, 주문시간, 주문개수, 합계를 주문번호 순으로 정렬하여 <br>
+orderlistTableView인 <br>
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/b3201ba1-172a-4626-87f3-d26cdbde1084) <br>
+화면에는 주문번호, 일시, 아메리카노, 카푸치노, 카페라떼의 개수, 합계가 나오고 <br><br>
+
+resultTextArea인 <br>
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/20007359-2e35-4da8-8839-70e6e10341b5) <br>
+화면에는 아메리카노, 카푸치노, 카페라떼의 개수와, 금액의 총합이 나온다. <br><br>
+
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/9f003c16-b7b5-4aa8-8d34-9bd7af7b59b7) <br>
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/ae36a673-f1e1-4409-94ba-a6965fd3afc4) <br>
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/3d5293b7-8309-48f2-9c8a-2be883ec25f3)
