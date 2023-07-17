@@ -41,7 +41,7 @@ public class Main extends Application {
 
 ```
 <br><br><br>
-# controller code
+# controller 코드
 ``` java
 public class SampleController {
     @FXML private Button CalButton, CancleButton;
@@ -131,7 +131,7 @@ public class SampleController {
     		DBconnect conn = new DBconnect();	// DB연결하는 코드
     		Connection conn2 = conn.getconn();
     		
-    		String sql = "insert into orderlist_accounts" // 'orderlist_accounts' 테이블에 데이터를 삽입하는 INSERT문
+    		Str ing sql = "insert into orderlist_accounts" // 'orderlist_accounts' 테이블에 데이터를 삽입하는 INSERT문
     				+ " (idx, order_time, menu1, count1, menu2, count2, menu3, count3, sum)" 
     				+ " values (orderlist_idx_pk.nextval, current_timestamp, '아메리카노', ?, '카푸치노', ?, '카페라떼', ?, ?)";
     				// 삽입할 열은 idx, order_time, menu1, count1, menu2, count2, menu3, count3, sum
@@ -177,6 +177,24 @@ public class SampleController {
 }
 ```
 <br><br><br>
+
+# kiosksum 클래스
+``` java
+package application;
+public class Kiosksum {
+	public int ksum(int[] countm) {
+		int sum2=0;
+		int price[] = {1000,2000,3000};
+			
+		for(int i=0 ; i<3 ; i++) {
+			sum2 = sum2 + countm[i] * price[i];
+		}
+		return sum2;
+	}
+}
+```
+<br><br><br>
+
 # 관리자 로그인 코드
 ```java
 package application;
@@ -279,12 +297,10 @@ public class DBconnect {
 	
 	public Connection conn; // conn이라는 DB와 연결해주는 코드
 	public Connection getconn() {
-
 		String driver = "oracle.jdbc.driver.OracleDriver"; // DB연결 경로(외워야함)
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String id = "cafe3"; // DB생성 했을때 내가 지정한 id, pw
 		String password = "cafe3";
-		
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, id, password);	// DB에 있는 id, password가 일치 할 시 DB 접속
@@ -299,18 +315,227 @@ public class DBconnect {
 ```
 <br><br><br>
 
-# kiosksum 클래스
+### 관리자 DB조회 화면 컨트롤러
 ``` java
-package application;
-public class Kiosksum {
-	public int ksum(int[] countm) {
-		int sum2=0;
-		int price[] = {1000,2000,3000};
+public class AdmindbController implements Initializable{
+	int mcount1=0;
+	int mcount2=0;
+	int mcount3=0;
+	int msum=0;
+	
+	@FXML private Button searchButton, datesearchButton, datesearch2Button, sumButton, countButton;
+	@FXML private DatePicker dateDatePicker, startDatePicker, endDatePicker;
+	@FXML private TextArea resultTextArea;
+	@FXML private TableView<Orderlist> orderlistTableView;
+	@FXML private PieChart resultPieChart;
+
+	// <S> 각 컬럼과 데이터형식이 일치하는 자료구조를 가진 클래스 파일명	
+		@FXML TableColumn<Orderlist, String> idxTableColumn;
+		@FXML TableColumn<Orderlist, String> dateTableColumn;
+		@FXML TableColumn<Orderlist, String> count1TableColumn;
+		@FXML TableColumn<Orderlist, String> count2TableColumn;
+		@FXML TableColumn<Orderlist, String> count3TableColumn;
+		@FXML TableColumn<Orderlist, String> sumTableColumn;
+		// TableColumn<S, T>
+		// T는 S파일에서 선언한 변수의 자료형
+		
+		@Override
+		public void initialize(URL arg0, ResourceBundle arg1) {
 			
-		for(int i=0 ; i<3 ; i++) {
-			sum2 = sum2 + countm[i] * price[i];
+			System.out.println("주문리스트 창이 열리고 초기화를 하려고 함");
+			
+			idxTableColumn.setCellValueFactory(new PropertyValueFactory<>("idx"));
+			dateTableColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+			count1TableColumn.setCellValueFactory(new PropertyValueFactory<>("count1"));
+			count2TableColumn.setCellValueFactory(new PropertyValueFactory<>("count2"));
+			count3TableColumn.setCellValueFactory(new PropertyValueFactory<>("count3"));
+			sumTableColumn.setCellValueFactory(new PropertyValueFactory<>("sum"));
 		}
-		return sum2;
+		
+		@FXML
+		private void searchButtonAction(ActionEvent event) {
+			// 디비 접속
+			// sql을 이용해서 데이터 선택하기
+			// 쿼리 실행
+			mcount1=0;
+			mcount2=0;
+			mcount3=0;
+			msum=0;
+			
+			DBconnect conn = new DBconnect();
+			Connection conn2 = conn.getconn();
+			
+			// 주문리스트 테이블에 있는 자료 검색하기(정렬기준 idx)
+			String sql = "select idx, to_char(order_time, 'yyyy-mm-dd hh24:mi:ss'), count1, count2, count3, sum"
+					  + " from orderlist_accounts"
+					  + " order by idx";
+			
+			try {
+				PreparedStatement ps = conn2.prepareStatement(sql);
+				ResultSet rs = ps.executeQuery(); // 쿼리 세팅, 실행 = Resultset에 저장
+				
+				ObservableList<Orderlist> datalist = FXCollections.observableArrayList();
+				
+				resultTextArea.setText(""); 
+				while(rs.next()) {
+					orderlistTableView.setItems(datalist);
+					datalist.add(
+								 new Orderlist(rs.getString(1), 
+										 		rs.getString(2),
+										 		rs.getString(3),
+										 		rs.getString(4),
+										 		rs.getString(5),
+										 		rs.getString(6)
+										 		)
+								 );
+					mcount1= mcount1 + Integer.parseInt(rs.getString(3));
+					mcount2= mcount2 + Integer.parseInt(rs.getString(4));
+					mcount3= mcount3 + Integer.parseInt(rs.getString(5));
+					msum= msum + Integer.parseInt(rs.getString(6));
+				}
+				resultTextArea.appendText("아메리카노 : " + mcount1 + "잔\n");
+				resultTextArea.appendText("카푸치노 : " + mcount2 + "잔\n");
+				resultTextArea.appendText("카페라떼 : " + mcount3 + "잔\n");
+				resultTextArea.appendText("총합 : " + msum);
+				
+				ps.close();
+				rs.close();
+				conn2.close(); // DB연결 끊기
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		@FXML
+		private void datesearchButtonAction(ActionEvent event) {
+			mcount1=0;
+			mcount2=0;
+			mcount3=0;
+			msum=0;	
+			if(dateDatePicker.getValue()==null) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("알림 메시지");
+				alert.setContentText("날짜를 먼저 선택하고 조회");
+				alert.show();
+			} else {
+				DBconnect DBconn = new DBconnect();
+				Connection conn2 = DBconn.getconn();
+				
+				String sql="select idx, order_time, count1, count2, count3, sum"
+						+ " from orderlist_accounts"
+						+ " where to_char(order_time, 'yyyy-mm-dd') = ?";
+				try {
+					PreparedStatement ps = conn2.prepareStatement(sql);
+					ps.setString(1, (dateDatePicker.getValue()).toString());
+					ResultSet rs = ps.executeQuery();
+					ObservableList<Orderlist> datalist = FXCollections.observableArrayList();
+					resultTextArea.setText("");
+					while(rs.next()) {
+						resultTextArea.setText("");
+						datalist.add(
+								 new Orderlist(rs.getString(1), 
+										 		rs.getString(2),
+										 		rs.getString(3),
+										 		rs.getString(4),
+										 		rs.getString(5),
+										 		rs.getString(6)
+										 		)
+								 );
+						mcount1= mcount1 + Integer.parseInt(rs.getString(3));
+						mcount2= mcount2 + Integer.parseInt(rs.getString(4));
+						mcount3= mcount3 + Integer.parseInt(rs.getString(5));
+						msum= msum + Integer.parseInt(rs.getString(6));
+					}
+					orderlistTableView.setItems(datalist);
+					resultTextArea.appendText("아메리카노 : " + mcount1 + "잔\n");
+					resultTextArea.appendText("카푸치노 : " + mcount2 + "잔\n");
+					resultTextArea.appendText("카페라떼 : " + mcount3 + "잔\n");
+					resultTextArea.appendText("총합 : " + msum);					
+						
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}	
+		}		
 	}
+		@FXML
+		private void datesearch2ButtonAction(ActionEvent event) {
+			mcount1=0;
+			mcount2=0;
+			mcount3=0;
+			msum=0;
+
+				if(startDatePicker.getValue()==null || endDatePicker.getValue()==null) {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("알림 메시지");
+					alert.setContentText("시작 날짜와 종료 날짜 모두 입력");
+					alert.show();
+				} else {
+					DBconnect conn = new DBconnect();	// DB 접속, 해당 기간에 일치하는 데이터 검색 sql
+					Connection conn2 = conn.getconn();
+					
+					String sql = "select idx, order_time, count1, count2, count3, sum"
+							  + " from orderlist_accounts"
+							  + " where order_time >= ? and order_time <= ?"
+						//	  + " where order_time between ? and ?"
+							  + " order by idx";
+					try {
+						PreparedStatement ps = conn2.prepareStatement(sql);
+						ps.setString(1, startDatePicker.getValue().toString());
+						ps.setString(2, endDatePicker.getValue().plusDays(1).toString());
+						ResultSet rs = ps.executeQuery();	
+						resultTextArea.setText("");
+						ObservableList<Orderlist> datalist = FXCollections.observableArrayList();
+						// arraylist 생성
+						
+						while(rs.next()) {	// while문으로 arraylist에 값을 추가(add)
+							datalist.add(
+										 new Orderlist(
+												 	   rs.getString(1),
+												 	   rs.getString(2),
+												 	   rs.getString(3),
+												 	   rs.getString(4),
+												 	   rs.getString(5),
+												 	   rs.getString(6)
+												 	   )
+										 );
+							mcount1= mcount1 + Integer.parseInt(rs.getString(3));
+							mcount2= mcount2 + Integer.parseInt(rs.getString(4));
+							mcount3= mcount3 + Integer.parseInt(rs.getString(5));
+							msum= msum + Integer.parseInt(rs.getString(6));
+						}
+						resultTextArea.appendText("아메리카노 : " + mcount1 + "잔\n");
+						resultTextArea.appendText("카푸치노 : " + mcount2 + "잔\n");
+						resultTextArea.appendText("카페라떼 : " + mcount3 + "잔\n");
+						resultTextArea.appendText("총합 : " + msum);
+						
+						ps.close();
+						rs.close();
+						conn2.close();
+						orderlistTableView.setItems(datalist);
+					} catch (SQLException e) {
+						e.printStackTrace();
+						}
+					// 변수값도 계산
+					// 테이블뷰에 표시하기(setItems)
+					// 통계도 표시
+				}			
+		}
+		@FXML
+		private void countButtonAction (ActionEvent event) {
+			resultPieChart.setTitle("메뉴별 판매수량 그래프");
+			resultPieChart.setData(FXCollections.observableArrayList(
+					new PieChart.Data("아메리카노" + mcount1 + "잔", mcount1),
+					new PieChart.Data("카푸치노" + mcount2 + "잔", mcount2),
+					new PieChart.Data("카페라떼" + mcount3 + "잔", mcount3)
+					));
+		}
+		@FXML
+		private void sumButtonAction (ActionEvent event) {
+			resultPieChart.setTitle("메뉴별 판매금액 그래프");
+			resultPieChart.setData(FXCollections.observableArrayList(
+					new PieChart.Data("아메리카노" + mcount1*1000 + "원", mcount1*1000),
+					new PieChart.Data("카푸치노" + mcount2*2000 + "원", mcount2*2000),
+					new PieChart.Data("카페라떼" + mcount3*3000 + "원", mcount3*3000)
+					));
+		}
 }
 ```
