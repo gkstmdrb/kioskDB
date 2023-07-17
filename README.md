@@ -190,24 +190,6 @@ public class Kiosksum {
 
 # 관리자 로그인 코드
 ```java
-package application;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
 public class AdminloginController {
 	@FXML Button LoginButtion, ClearButton, CloseButton;
 	@FXML TextField IdTextField;
@@ -282,10 +264,6 @@ public class AdminloginController {
 <br><br><br>
 # DB연결 코드
 ```java
-package application;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 public class DBconnect {
 	
 	public Connection conn; // conn이라는 DB와 연결해주는 코드
