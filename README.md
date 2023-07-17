@@ -314,8 +314,8 @@ public class AdmindbController implements Initializable{
 	@FXML private PieChart resultPieChart;
 
 	// <S> 각 컬럼과 데이터형식이 일치하는 자료구조를 가진 클래스 파일명	
-		@FXML TableColumn<Orderlist, String> idxTableColumn;
-		@FXML TableColumn<Orderlist, String> dateTableColumn;
+		@FXML TableColumn<Orderlist, String> idxTableColumn;	// TableView의 TableColumn을 정의하는 코드
+		@FXML TableColumn<Orderlist, String> dateTableColumn;	// String은 데이터의 타입을 명시
 		@FXML TableColumn<Orderlist, String> count1TableColumn;
 		@FXML TableColumn<Orderlist, String> count2TableColumn;
 		@FXML TableColumn<Orderlist, String> count3TableColumn;
@@ -504,7 +504,7 @@ public class AdmindbController implements Initializable{
 				}			
 		}
 		@FXML
-		private void countButtonAction (ActionEvent event) {
+		private void countButtonAction (ActionEvent event) { // 판매수량 그래프 버튼을 누를 시 각 메뉴별 판매 수량을 나타낸다.
 			resultPieChart.setTitle("메뉴별 판매수량 그래프");
 			resultPieChart.setData(FXCollections.observableArrayList(
 					new PieChart.Data("아메리카노" + mcount1 + "잔", mcount1),
@@ -513,9 +513,9 @@ public class AdmindbController implements Initializable{
 					));
 		}
 		@FXML
-		private void sumButtonAction (ActionEvent event) {
-			resultPieChart.setTitle("메뉴별 판매금액 그래프");
-			resultPieChart.setData(FXCollections.observableArrayList(
+		private void sumButtonAction (ActionEvent event) {	// 판매금액 그래프 버튼을 누를 시 총 합계를 구한다.
+			resultPieChart.setTitle("메뉴별 판매금액 그래프"); // 타이틀 문자 설정
+			resultPieChart.setData(FXCollections.observableArrayList( 
 					new PieChart.Data("아메리카노" + mcount1*1000 + "원", mcount1*1000),
 					new PieChart.Data("카푸치노" + mcount2*2000 + "원", mcount2*2000),
 					new PieChart.Data("카페라떼" + mcount3*3000 + "원", mcount3*3000)
