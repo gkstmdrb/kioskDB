@@ -315,7 +315,7 @@ public class DBconnect {
 ```
 <br><br><br>
 
-### 관리자 DB조회 화면 컨트롤러
+# 관리자 DB조회 화면 컨트롤러
 ``` java
 public class AdmindbController implements Initializable{
 	int mcount1=0;
@@ -537,5 +537,76 @@ public class AdmindbController implements Initializable{
 					new PieChart.Data("카페라떼" + mcount3*3000 + "원", mcount3*3000)
 					));
 		}
+}
+```
+<br><br><br>
+
+# package application;
+``` java
+public class Orderlist {
+	// 실제 테이블 뷰에 들어가는 각 컬럼들을 나타낼 수 있는 자료구조를 만들어야 함
+	String idx=""; 	// 각 컬럼에 해당하는 변수 선언하기
+	String date="";
+	String count1="";
+	String count2="";
+	String count3="";
+	String sum="";
+	
+	public Orderlist(String idx, String date, String count1, String count2, String count3, String sum) {
+		super();
+		this.idx = idx;
+		this.date = date;
+		this.count1 = count1;
+		this.count2 = count2;
+		this.count3 = count3;
+		this.sum = sum;
+	}
+	public String getIdx() {	// 정수형, 날짜형, 문자형이 있지만 화면에 보이는건 모두 문자형 --> 모두 String
+		return idx;
+	}
+
+	public void setIdx(String idx) {
+		this.idx = idx;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getCount1() {
+		return count1;
+	}
+
+	public void setCount1(String count1) {
+		this.count1 = count1;
+	}
+
+	public String getCount2() {
+		return count2;
+	}
+
+	public void setCount2(String count2) {
+		this.count2 = count2;
+	}
+
+	public String getCount3() {
+		return count3;
+	}
+
+	public void setCount3(String count3) {
+		this.count3 = count3;
+	}
+
+	public String getSum() {
+		return sum;
+	}
+
+	public void setSum(String sum) {
+		this.sum = sum;
+	}
 }
 ```
