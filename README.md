@@ -1,13 +1,26 @@
 # kioskDB
 <br><br><br>
 # 키오스크 화면
-![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/698f154b-512e-4d3a-9885-026ff68e0c54)
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/698f154b-512e-4d3a-9885-026ff68e0c54) <br>
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/1a0fc4cf-9396-4885-b00c-a57a4d45ab09) <br>
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/861e9335-33dd-4bf7-b47a-b96b05677b70) <br>
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/508a4474-8c34-440b-85d8-d1dc97819b64)
+
 <br><br><br>
 # 관리자 로그인 화면
-![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/d11155f5-9b98-41d5-bd45-611edbf431ea)
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/d11155f5-9b98-41d5-bd45-611edbf431ea) <br>
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/438e598b-d018-44b9-86ff-5051edbcab33) <br>
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/299aaa0c-4e7b-4ca1-8300-06f329d92d01) <br>
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/73368a3d-345e-476b-b398-6ec7d3836ef9) <br>
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/0493f829-55ae-4929-9b6f-2bca9b80d4ae)
+
 <br><br><br>
 # 통계 화면
-![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/ec2b8c22-d13a-45c3-a0ae-c4ae9d5847dd)
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/ec2b8c22-d13a-45c3-a0ae-c4ae9d5847dd) <br>
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/9f003c16-b7b5-4aa8-8d34-9bd7af7b59b7) <br>
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/ae36a673-f1e1-4409-94ba-a6965fd3afc4) <br>
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/3d5293b7-8309-48f2-9c8a-2be883ec25f3)
+
 <br><br><br>
 # kiosk main
 
