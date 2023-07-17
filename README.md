@@ -13,8 +13,8 @@ SceneBuilder에서 디자인한 화면을 띄우는 코드이다.
 
 ## 주문시
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/861e9335-33dd-4bf7-b47a-b96b05677b70) <br>
-계산시 총액이 0원이 아니라면 주문 성공시 나오는 안내 화면이 나오고, <br>
-DB에 내가 주문한 정보가 저장된다. <br><br>
+계산버튼을 누르고 주문버튼을 눌렀을때 합계가 0이라면 실패 안내창이 나오고, <br>
+0이 아니라면 성공 안내창이 나오고 DB에 내가 주문한 정보가 저장된다. <br><br>
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/508a4474-8c34-440b-85d8-d1dc97819b64) <br>
 합계가 0원이라면 DB에 정보가 저장이 되지도 않고, <br>
 다시 주문해야 한다.
