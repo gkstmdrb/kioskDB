@@ -2,9 +2,22 @@
 <br><br><br>
 # 키오스크 화면
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/698f154b-512e-4d3a-9885-026ff68e0c54) <br>
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/aeaa58c0-5199-49bd-9c45-33cd14945394) <br><br>
+SceneBuilder에서 디자인한 화면을 띄우는 코드이다.
+
+## 품목 버튼
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/1a0fc4cf-9396-4885-b00c-a57a4d45ab09) <br>
++버튼을 누르면 원하는 품목의 개수가 1개 늘어나고, <br>
+-버튼을 누르면 개수가 1개 차감된다. <br>
+계산하기 버튼을 누르면 주문한 품목의 총액을 계산하여 금액이 나온다.
+
+## 주문시
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/861e9335-33dd-4bf7-b47a-b96b05677b70) <br>
-![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/508a4474-8c34-440b-85d8-d1dc97819b64)
+계산시 총액이 0원이 아니라면 주문 성공시 나오는 안내 화면이 나오고, <br>
+DB에 내가 주문한 정보가 저장된다. <br><br>
+![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/508a4474-8c34-440b-85d8-d1dc97819b64) <br>
+합계가 0원이라면 DB에 정보가 저장이 되지도 않고, <br>
+다시 주문해야 한다.
 
 <br><br><br>
 # 관리자 로그인 화면
