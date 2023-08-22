@@ -63,97 +63,9 @@ resultTextArea인 <br>
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/3d5293b7-8309-48f2-9c8a-2be883ec25f3) <br>
 시작 날짜, 종료 날짜 칸에 날짜를 입력하여 범위를 설정 후 기간별 조회 버튼을 누르면 그 범위에 해당하는 날짜의 주문 정보가 나온다. <br><br><br>
 
-<br><br><br>
-
-# kiosksum 클래스
-``` java
-package application;
-public class Kiosksum {
-	public int ksum(int[] countm) {
-		int sum2=0;
-		int price[] = {1000,2000,3000};
-			
-		for(int i=0 ; i<3 ; i++) {
-			sum2 = sum2 + countm[i] * price[i];
-		}
-		return sum2;
-	}
-}
-```
-<br><br><br>
-
 # 관리자 로그인 코드
 ```java
-public class AdminloginController {
-	@FXML Button LoginButtion, ClearButton, CloseButton;
-	@FXML TextField IdTextField;
-	@FXML PasswordField PwPasswordField;
-	@FXML
-	private void LoginButtonAction(ActionEvent event) {
-		// IdTextField에 입력한 Text가 비어있거나 PwPasswordField에도 비어있다면 경고창 띄우기
-		if(IdTextField.getText().isEmpty() || PwPasswordField.getText().isEmpty()) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("경고창");
-			alert.setContentText("아이디 비번 모두 입력");
-			alert.show();
-		} else {
-		DBconnect conn = new DBconnect(); // DB연결 코드
-		Connection conn2 = conn.getconn();
-		
-		String sql = "select adminid, adminpw"
-				   + " from admin_accounts"
-				   + " where adminid = ? and adminpw = ?";
-		// DB에 있는 admin_accounts 테이블에 adminid, adminpw가 입력한 값과 일치한다면 adminid, pw 조회
-		
-		try {
-			PreparedStatement ps = conn2.prepareStatement(sql);
-			
-			ps.setString(1, IdTextField.getText());		// 첫번째 ?값 가져오기
-			ps.setString(2, PwPasswordField.getText());	// 두번째 ?값 가져오기
-			
-			ResultSet rs = ps.executeQuery(); // 쿼리 실행문
-			if(rs.next()) {
-				Alert alert = new Alert(AlertType.CONFIRMATION);
-				alert.setTitle("알림");
-				alert.setContentText("로그인 성공");
-				alert.show();
-				Stage stage = new Stage();
-				
-				CloseButtonAction(event);
-				
-				try {
-					Parent root = FXMLLoader.load(getClass().getResource("Admindb.fxml"));
-					Scene scene = new Scene(root);
-					stage.setScene(scene);
-					stage.show();
-				} catch (IOException e) {
-					
-					e.printStackTrace();
-				}
-			} else {
-				Alert alert = new Alert(AlertType.CONFIRMATION);
-				alert.setTitle("알림");
-				alert.setContentText("로그인 실패");
-				alert.show();
-			}
-		} catch (SQLException e) {	
-			e.printStackTrace();
-		}
-	}
-}
-	
-	@FXML
-	private void ClearButttonAction(ActionEvent event) {
-		IdTextField.setText("");
-		PwPasswordField.setText("");
-	}
-	@FXML
-	private void CloseButtonAction(ActionEvent event) {
-		Stage stage = new Stage();
-		stage = (Stage)CloseButton.getScene().getWindow();
-		stage.close();
-	}
-}
+
 ```
 <br><br><br>
 # DB연결 코드
