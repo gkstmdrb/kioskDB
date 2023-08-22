@@ -1,1 +1,19 @@
-
+public class Main extends Application {
+	@Override
+	public void start(Stage primaryStage) {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("Sample.fxml"));
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("성일CAFE - 5월");	// 키오스크 화면 타이틀 이름
+			primaryStage.show();	// 실행시 화면을 띄우는 코드(이게 있어야 화면이 나옴)
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
+}
