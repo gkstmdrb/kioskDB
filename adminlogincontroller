@@ -1,0 +1,70 @@
+public class AdminloginController {
+	@FXML Button LoginButtion, ClearButton, CloseButton;
+	@FXML TextField IdTextField;
+	@FXML PasswordField PwPasswordField;
+	@FXML
+	private void LoginButtonAction(ActionEvent event) {
+		// IdTextField에 입력한 Text가 비어있거나 PwPasswordField에도 비어있다면 경고창 띄우기
+		if(IdTextField.getText().isEmpty() || PwPasswordField.getText().isEmpty()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("경고창");
+			alert.setContentText("아이디 비번 모두 입력");
+			alert.show();
+		} else {
+		DBconnect conn = new DBconnect(); // DB연결 코드
+		Connection conn2 = conn.getconn();
+		
+		String sql = "select adminid, adminpw"
+				   + " from admin_accounts"
+				   + " where adminid = ? and adminpw = ?";
+		// DB에 있는 admin_accounts 테이블에 adminid, adminpw가 입력한 값과 일치한다면 adminid, pw 조회
+		
+		try {
+			PreparedStatement ps = conn2.prepareStatement(sql);
+			
+			ps.setString(1, IdTextField.getText());		// 첫번째 ?값 가져오기
+			ps.setString(2, PwPasswordField.getText());	// 두번째 ?값 가져오기
+			
+			ResultSet rs = ps.executeQuery(); // 쿼리 실행문
+			if(rs.next()) {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("알림");
+				alert.setContentText("로그인 성공");
+				alert.show();
+				Stage stage = new Stage();
+				
+				CloseButtonAction(event);
+				
+				try {
+					Parent root = FXMLLoader.load(getClass().getResource("Admindb.fxml"));
+					Scene scene = new Scene(root);
+					stage.setScene(scene);
+					stage.show();
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
+			} else {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("알림");
+				alert.setContentText("로그인 실패");
+				alert.show();
+			}
+		} catch (SQLException e) {	
+			e.printStackTrace();
+		}
+	}
+}
+	
+	@FXML
+	private void ClearButttonAction(ActionEvent event) {
+		IdTextField.setText("");
+		PwPasswordField.setText("");
+	}
+	@FXML
+	private void CloseButtonAction(ActionEvent event) {
+		Stage stage = new Stage();
+		stage = (Stage)CloseButton.getScene().getWindow();
+		stage.close();
+	}
+}
