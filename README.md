@@ -63,35 +63,6 @@ resultTextArea인 <br>
 ![image](https://github.com/gkstmdrb/kioskDB/assets/114748816/3d5293b7-8309-48f2-9c8a-2be883ec25f3) <br>
 시작 날짜, 종료 날짜 칸에 날짜를 입력하여 범위를 설정 후 기간별 조회 버튼을 누르면 그 범위에 해당하는 날짜의 주문 정보가 나온다. <br><br><br>
 
-# 관리자 로그인 코드
-```java
-
-```
-<br><br><br>
-# DB연결 코드
-```java
-public class DBconnect {
-	
-	public Connection conn; // conn이라는 DB와 연결해주는 코드
-	public Connection getconn() {
-		String driver = "oracle.jdbc.driver.OracleDriver"; // DB연결 경로(외워야함)
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
-		String id = "cafe3"; // DB생성 했을때 내가 지정한 id, pw
-		String password = "cafe3";
-		try {
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, id, password);	// DB에 있는 id, password가 일치 할 시 DB 접속
-			System.out.println("디비 접속 성공-20230516");
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("디비 접속 실패");
-		}
-		return conn;
-	}
-}
-```
-<br><br><br>
-
 # 관리자 DB조회 화면 컨트롤러
 ``` java
 public class AdmindbController implements Initializable{
