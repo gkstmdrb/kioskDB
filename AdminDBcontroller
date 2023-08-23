@@ -1,5 +1,5 @@
 관리자 DB조회 화면 컨트롤러
-
+-----------------------------------------------------------
 public class AdmindbController implements Initializable{
 	int mcount1=0;
 	int mcount2=0;
